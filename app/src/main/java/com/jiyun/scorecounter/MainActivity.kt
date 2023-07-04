@@ -1,7 +1,10 @@
 package com.jiyun.scorecounter
 
+import android.app.Activity
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -23,6 +26,7 @@ class MainActivity : AppCompatActivity() {
 
         var plus_circle_button = findViewById<Button>(R.id.plus_circle_button) // + 버튼
         var minus_button = findViewById<Button>(R.id.minus_button) // - 버튼
+
 
         // 초기 값 세팅
         var question_number = 60 // 문제 개수
@@ -76,7 +80,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
         // 원형 버튼 클릭시
         plus_circle_button.setOnClickListener {
             if(count < question_number){
@@ -123,5 +126,10 @@ class MainActivity : AppCompatActivity() {
         var score = (count.toDouble()/question_number.toDouble() * 100).roundToInt()
         score_textview.setText(score.toString())
         return score
+    }
+
+
+    override fun onStop() {
+        super.onStop()
     }
 }

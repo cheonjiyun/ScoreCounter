@@ -94,7 +94,7 @@
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="152dp"
+        android:layout_marginEnd="156dp"
         android:fontFamily="@font/gangwonbold"
         android:text="점"
         android:textColor="@color/black"
