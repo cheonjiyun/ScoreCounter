@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:background="@drawable/reset_button"
+    <ImageView
+        android:contentDescription="@string/reset_button"
         android:id="@+id/reset_button"
         android:layout_width="28dp"
         android:layout_height="28dp"
@@ -21,119 +21,150 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="64dp"
-        android:fontFamily="@font/gangwonbold"
-        android:text="문제 개수"
-        android:textColor="@color/black"
-        android:textSize="28dp"
+        android:layout_marginTop="100dp"
+        android:fontFamily="@font/nanum_myeongjo"
+        android:text="@string/title1_question"
+        android:textColor="@color/main_text"
+        android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.509"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/question_minus_button"
-        android:layout_width="27dp"
-        android:layout_height="27dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="12dp"
-        android:background="@drawable/soft_circle_button"
-        android:text="-"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:fontFamily="@font/gangwonbold"
-        android:textAlignment="center"
-        android:gravity="center"
-        app:layout_constraintEnd_toStartOf="@+id/question_textview"
-        app:layout_constraintTop_toTopOf="@+id/question_textview" />
 
-    <TextView
-        android:id="@+id/question_textview"
-        android:layout_width="60dp"
+    <EditText
+        android:contentDescription="@string/input_question"
+        android:id="@+id/question_editText"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:fontFamily="@font/gangwonbold"
-        android:text="1200"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="28dp"
+        android:layout_marginTop="20dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:fontFamily="@font/nanum_myeongjo_extra_bold"
+        android:gravity="center"
+        android:inputType="number"
+        android:maxLength="6"
+        android:selectAllOnFocus="true"
+        android:textColor="@color/main_text"
+        android:textSize="20dp"
+        android:backgroundTint="@color/main"
+        android:textColorHighlight="@color/tint"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/question_plus_button"
-        android:layout_width="27dp"
-        android:layout_height="27dp"
-        android:layout_marginStart="12dp"
-        android:background="@drawable/soft_circle_button"
-        android:text="+"
-        android:textColor="@color/white"
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:text="@string/unit1_question"
+        android:textColor="@color/main_text"
         android:textSize="20dp"
-        android:fontFamily="@font/gangwonbold"
-        android:gravity="center"
-        android:textAlignment="center"
-        app:layout_constraintStart_toEndOf="@+id/question_textview"
-        app:layout_constraintTop_toTopOf="@+id/question_minus_button" />
+        android:fontFamily="@font/nanum_myeongjo_extra_bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/question_editText"
+        app:layout_constraintStart_toEndOf="@+id/question_editText" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:fontFamily="@font/nanum_myeongjo"
+        android:text="@string/title2_count"
+        android:textColor="@color/main_text"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/question_editText" />
+
+    <Button
+        android:contentDescription="@string/plus_button"
+        android:id="@+id/plus_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="100dp"
+        android:text="+"
+        android:textSize="48dp"
+        android:textColor="@color/button_text"
+        android:fontFamily="@font/nanum_myeongjo_extra_bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <TextView
+        android:id="@+id/correctCount_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="2222"
+        android:textSize="36dp"
+        android:textColor="@color/main_text"
+        android:fontFamily="@font/nanum_myeongjo_extra_bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/plus_button" />
+
+    <Button
+        android:contentDescription="@string/minus_button"
+        android:id="@+id/minus_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="100dp"
+        android:text="-"
+        android:textSize="48dp"
+        android:textColor="@color/button_text"
+        android:fontFamily="@font/nanum_myeongjo_extra_bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/correctCount_textview" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:fontFamily="@font/nanum_myeongjo"
+        android:text="@string/title3_score"
+        android:textColor="@color/main_text"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/minus_button" />
 
     <TextView
         android:id="@+id/score_textview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_marginEnd="12dp"
-        android:fontFamily="@font/gangwonbold"
+        android:fontFamily="@font/nanum_myeongjo_extra_bold"
+        android:gravity="right"
         android:text="100"
-        android:textColor="@color/red"
-        android:textSize="36dp"
-        app:layout_constraintEnd_toStartOf="@+id/textView6"
-        app:layout_constraintTop_toBottomOf="@+id/question_textview" />
+        android:textColor="@color/main_text"
+        android:textSize="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView6" />
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="156dp"
-        android:fontFamily="@font/gangwonbold"
-        android:text="점"
-        android:textColor="@color/black"
-        android:textSize="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/score_textview" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/plus_circle_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="40dp"
-        android:width="240dp"
-        android:height="240dp"
-        android:background="@drawable/plus_circle_button"
-        android:fontFamily="@font/gangwonbold"
-        android:text="2222"
-        android:textColor="@color/white"
-        android:textSize="96dp"
-        app:layout_constraintBottom_toTopOf="@+id/minus_button"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/minus_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
-        android:width="157dp"
-        android:height="47dp"
-        android:background="@drawable/minus_button"
-        android:fontFamily="@font/gangwonbold"
-        android:text="-1"
-        android:textColor="@color/white"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/nanum_myeongjo_extra_bold"
+        android:text="@string/unit2_score"
+        android:textColor="@color/main_text"
+        android:textSize="20dp"
+        app:layout_constraintStart_toEndOf="@+id/score_textview"
+        app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

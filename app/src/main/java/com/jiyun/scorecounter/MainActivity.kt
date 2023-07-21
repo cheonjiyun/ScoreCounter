@@ -2,10 +2,23 @@ package com.jiyun.scorecounter
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.widget.addTextChangedListener
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
@@ -15,16 +28,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val reset_button = findViewById<Button>(R.id.reset_button)
+        val resetButton = findViewById<ImageView>(R.id.reset_button)
 
-        val question_minus_button = findViewById<Button>(R.id.question_minus_button)
-        val question_textview = findViewById<TextView>(R.id.question_textview)
-        val question_plus_button = findViewById<Button>(R.id.question_plus_button)
+        val questionEditText = findViewById<TextView>(R.id.question_editText)
 
-        val score_textview = findViewById<TextView>(R.id.score_textview)
+        val scoreTextview = findViewById<TextView>(R.id.score_textview)
 
-        val plus_circle_button = findViewById<Button>(R.id.plus_circle_button) // + 버튼
-        val minus_button = findViewById<Button>(R.id.minus_button) // - 버튼
+        val plusButton = findViewById<Button>(R.id.plus_button) // + 버튼
+        val correctCount = findViewById<TextView>(R.id.correctCount_textview)
+        val minusButton = findViewById<Button>(R.id.minus_button) // - 버튼
 
 
         // 초기 값 세팅
@@ -33,111 +45,124 @@ class MainActivity : AppCompatActivity() {
             Context.MODE_PRIVATE
         ) //SharedPreferences
         var questionNumber = questionShared.getInt("question_number", 60)   // 문제 개수
-        question_textview.setText(questionNumber.toString()) //문제 개수
+        questionEditText.setText(questionNumber.toString()) //문제 개수
 
         var count = 0 //카운트 값
-        plus_circle_button.setText(count.toString())
+        correctCount.setText(count.toString())
 
         var score = 0 //점수
-        score_textview.setText(score.toString())
+        scoreTextview.setText(score.toString())
 
 
         // 리셋 버튼 클릭시
-        reset_button.setOnClickListener {
+        resetButton.setOnClickListener {
             //카운트 값 0
             count = 0
 
             //카운트 값 표시 바꾸기
-            changeCount(plus_circle_button, count)
+            changeCount(correctCount, count)
 
             //점수 재 계산
-            score = calulateScore(count, questionNumber, score_textview)
+            score = calulateScore(count, questionNumber, scoreTextview)
+
+            //진동
+            val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            vibrator.vibrate(100);
         }
-
-        // 문제 개수 - 버튼
-        question_minus_button.setOnClickListener {
-            if (questionNumber > count && questionNumber > 1) {
-                questionNumber--
-
-                //문제 개수 표시 값 바꾸기
-                changeQuestionNumber(question_textview, questionNumber)
-
-                //점수 다시 계산
-                score = calulateScore(count, questionNumber, score_textview)
-
-                //문제 개수 SharedPreferences에 저장
-                with(questionShared.edit()) {
-                    putInt("question_number", questionNumber)
-                    apply()
-                }
+        
+        // 문제 개수 입력시
+        questionEditText.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+                Log.d("tags", "beforeTextChanged")
             }
 
-        }
-
-        // 문제 개수 + 버튼
-        question_plus_button.setOnClickListener {
-            if (questionNumber < 9999) {
-                questionNumber++
-
-                //문제 개수 표시 값 바꾸기
-                changeQuestionNumber(question_textview, questionNumber)
-
-                //점수 다시 계산
-                score = calulateScore(count, questionNumber, score_textview)
-
-                //문제 개수 SharedPreferences에 저장
-                with(questionShared.edit()) {
-                    putInt("question_number", questionNumber)
-                    apply()
-                }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                Log.d("tags", "onTextChanged")
             }
 
-        }
+            override fun afterTextChanged(s: Editable?) {
+                Log.d("tags", "afterTextChanged")
+                //카운트 값 0
+                if(questionEditText.text.toString() != ""){
+                    questionNumber = questionEditText.text.toString().toInt()
+
+                    score = calulateScore(count, questionNumber, scoreTextview)
+
+                    //문제 개수 SharedPreferences에 저장
+                    with(questionShared.edit()) {
+                        putInt("question_number", questionNumber)
+                        apply()
+                    }
+                }
+
+            }
+
+        })
 
 
-        // 원형 버튼 클릭시
-        plus_circle_button.setOnClickListener {
-            if (count < questionNumber) {
+        // + 버튼 클릭시
+        plusButton.setOnClickListener {
+            if (count < 1000000) {
                 //카운트 값 +1
                 count++
 
                 //카운트 값 표시 바꾸기
-                changeCount(plus_circle_button, count)
+                changeCount(correctCount, count)
 
                 //점수 계산
-                score = calulateScore(count, questionNumber, score_textview)
+                score = calulateScore(count, questionNumber, scoreTextview)
+
+                //진동
+                val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                vibrator.vibrate(100);
             }
 
 
         }
 
         // - 버튼 클릭시
-        minus_button.setOnClickListener {
+        minusButton.setOnClickListener {
             if (count > 0) {
                 //카운트 값 -1
                 count--
 
                 //카운트 값 표시 바꾸기
-                changeCount(plus_circle_button, count)
+                changeCount(correctCount, count)
 
                 //점수 계산
-                score = calulateScore(count, questionNumber, score_textview)
+                score = calulateScore(count, questionNumber, scoreTextview)
+
+                //진동
+                val vibrator = getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                vibrator.vibrate(100);
             }
-
         }
-
-
     }
 
-    fun changeQuestionNumber(question_textview: TextView, question_number: Int) {
-        question_textview.setText(question_number.toString())
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        val focusView = currentFocus
+        if(focusView != null && ev != null){
+            val rect = Rect()
+            focusView.getGlobalVisibleRect(rect)
+            val x = ev.x.toInt()
+            val y = ev.y.toInt()
+
+            if(!rect.contains(x, y)){
+                val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
+                imm?.hideSoftInputFromWindow(focusView.windowToken, 0)
+                focusView.clearFocus()
+            }
+        }
+        return super.dispatchTouchEvent(ev)
     }
 
-    fun changeCount(circle_button: Button, count: Int) {
-        circle_button.setText(count.toString())
+
+    fun changeCount(countTextView: TextView, count: Int) {
+        countTextView.setText(count.toString())
     }
 
     fun calulateScore(count: Int, question_number: Int, score_textview: TextView): Int {
+
         val score = (count.toDouble() / question_number.toDouble() * 100).roundToInt()
         score_textview.setText(score.toString())
         return score

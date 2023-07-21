@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">ScoreCounter</string>
+    <string name="app_name">점수 카운터</string>
+    <string name="title1_question">1. 총 문제 개수 입력</string>
+    <string name="title2_count">2. 맞힌 문제 개수 세기</string>
+    <string name="title3_score">3. 문제 개수에 따른 환산 점수</string>
+    <string name="unit1_question">개</string>
+    <string name="unit2_score">점</string>
+    <string name="reset_button">카운트 초기화</string>
+    <string name="input_question">문제 개수 입력 칸</string>
+    <string name="plus_button">카운트 +1 버튼</string>
+    <string name="minus_button">카운트 -1 버튼</string>
 </resources>
