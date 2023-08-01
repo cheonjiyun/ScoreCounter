@@ -7,7 +7,6 @@
     <string name="unit1_question">questions</string>
     <string name="unit2_score">points</string>
     <string name="reset_button">reset button</string>
-    <string name="input_question">input box of number of questions</string>
-    <string name="plus_button">count +1 button</string>
-    <string name="minus_button">count -1 button</string>
+    <string name="plus_button">count +1</string>
+    <string name="minus_button">count -1</string>
 </resources>
