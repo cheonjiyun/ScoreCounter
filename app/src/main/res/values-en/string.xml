@@ -6,7 +6,7 @@
     <string name="title3_score">3. Converted Score</string>
     <string name="unit1_question">questions</string>
     <string name="unit2_score">points</string>
-    <string name="reset_button">reset button</string>
+    <string name="reset_button">reset count</string>
     <string name="plus_button">count +1</string>
     <string name="minus_button">count -1</string>
 </resources>

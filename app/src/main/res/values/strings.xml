@@ -6,6 +6,6 @@
     <string name="unit1_question">개</string>
     <string name="unit2_score">점</string>
     <string name="reset_button">카운트 초기화</string>
-    <string name="plus_button">카운트 +1 버튼</string>
-    <string name="minus_button">카운트 -1 버튼</string>
+    <string name="plus_button">카운트 +1</string>
+    <string name="minus_button">카운트 -1</string>
 </resources>
