@@ -5,24 +5,21 @@ import android.content.SharedPreferences
 import android.graphics.Rect
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.VibrationEffect
 import android.os.Vibrator
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
-import android.view.Menu
-import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
-import androidx.core.widget.addTextChangedListener
 import kotlin.math.roundToInt
 
 class MainActivity : AppCompatActivity() {
 
+    var count = 0 //카운트 값
+    var score = 0 //점수
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +44,11 @@ class MainActivity : AppCompatActivity() {
         var questionNumber = questionShared.getInt("question_number", 60)   // 문제 개수
         questionEditText.setText(questionNumber.toString()) //문제 개수
 
-        var count = 0 //카운트 값
-        correctCount.setText(count.toString())
 
-        var score = 0 //점수
-        scoreTextview.setText(score.toString())
+        correctCount.setText(count.toString()) //카운트 값
+
+        //점수 계산
+        score = calulateScore(count, questionNumber, scoreTextview) //점수
 
 
         // 리셋 버튼 클릭시
@@ -161,11 +158,32 @@ class MainActivity : AppCompatActivity() {
         countTextView.setText(count.toString())
     }
 
-    fun calulateScore(count: Int, question_number: Int, score_textview: TextView): Int {
+    fun calulateScore(count: Int, question_number: Int, scoreTextview: TextView): Int {
 
         val score = (count.toDouble() / question_number.toDouble() * 100).roundToInt()
-        score_textview.setText(score.toString())
+        scoreTextview.setText(score.toString())
         return score
+    }
+
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        count = savedInstanceState.getInt("count")
+        score = savedInstanceState.getInt("score")
+
+        val correctCount = findViewById<TextView>(R.id.correctCount_textview)
+        correctCount.setText(count.toString()) //카운트 값
+
+        val scoreTextview = findViewById<TextView>(R.id.score_textview)
+        scoreTextview.setText(score.toString())
+
+        Log.d("회전","회전count $count")
+    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("count", count)
+        outState.putInt("score", score)
+        Log.d("count", "count값: $count")
     }
 }
 
