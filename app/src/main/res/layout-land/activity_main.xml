@@ -83,6 +83,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
+        android:layout_weight="1"
         >
 
         <Button
@@ -130,17 +131,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/nanum_myeongjo"
+        android:gravity="bottom|center_horizontal"
         android:text="@string/title3_score"
         android:textColor="@color/main_text"
-        android:textSize="20sp"
-        android:gravity="bottom|center_horizontal"
-        android:layout_weight="1"/>
+        android:textSize="20sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="top|center_horizontal"
+        android:layout_marginTop="7dp"
         android:layout_weight="2"
         >
         <TextView
